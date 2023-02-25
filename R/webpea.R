@@ -3,16 +3,45 @@
 #' @description Saves graphs in *.webp image format.
 #'
 #' @param filename Filename to save the webp image to.
-#' @param path_return Boolean, wether the absolute output path should be returned.
+#' @param path_return Boolean, whether the absolute output path should be returned.
 #' This allows to wrap the function in another function that works with the returned image. See
 #' vignette for details. By default true.
 #' @param quality Integer between 1 and 100. Specifies output quality for webp format. See {magick}
 #' documentation for details. Defaults to reasonable 75, when not given.
 #' @param ggsave Not yet in use.
+#' @param ... Arguments to be passed to ggplot::ggsave()
 #'
-#' @inheritParams ggplot2::ggsave
 #'
+#' @return Filename or path to the saved webp image.
 #'
+#' @examples
+#'
+#' # save last plot with default ggsave settings
+#'
+#' ggplot2::ggplot(mtcars) +
+#'   ggplot2::aes(disp, hp, color = cyl) +
+#'   ggplot2::geom_point(alpha = 0.1)
+#'
+#' webpea(tempfile("plot", fileext = ".webp"))
+#'
+#' # save specific plot with optional ggsave paramaters and in higher-than-default quality
+#'
+#' p1 <- ggplot2::ggplot(mtcars, ) +
+#'   ggplot2::aes(disp, hp, color = cyl) +
+#'   ggplot2::geom_point(alpha = 0.4)
+#'
+#' webpea(
+#'   tempfile("plot", fileext = ".webp"),
+#'   plot = p1,
+#'   width = 16,
+#'   height = 9,
+#'   quality = 90
+#' )
+#'
+#' @export
+#' @importFrom ggplot2 ggsave
+#' @importFrom magick image_read image_write
+
 
 webpea <- function(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, ...) {
   # check requirements
