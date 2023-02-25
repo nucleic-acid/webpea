@@ -1,14 +1,15 @@
 Type: Package
 Package: webpea
-Title: Save Plots in webP Image Format.
+Title: Save Plots in WebP Image Format
 Version: 0.1.0
-Author: person(c("Christian", "A."), "Gebhard", , "christian.gebhard@posteo.de", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-8792-565X"))
-Maintainer: person(c("Christian", "A."), "Gebhard", , "christian.gebhard@posteo.de", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-8792-565X"))
-Description: Provides a wrapper function for {ggplot2}'s ggsave(). Saves the specified plot in the 
-    *.webp imamge format. Results in considerably smaller file sizes when ompared to the common
-    PNG format with no loss of image quality in most use cases.
+Author: person(c("Christian", "A."), "Gebhard", ,
+    "christian.gebhard@posteo.de", role = c("aut", "cre"), comment =
+    c(ORCID = "0000-0002-8792-565X"))
+Maintainer: Christian A. Gebhard <christian.gebhard@posteo.de>
+Description: Provides a wrapper function for {ggplot2}'s ggsave(). Saves
+    the specified plot in the *.webp imamge format. Results in
+    considerably smaller file sizes when ompared to the common PNG format
+    with no loss of image quality in most use cases.
 License: MIT + file LICENSE
 URL: https://github.com/nucleic-acid/webpea
 BugReports: https://github.com/nucleic-acid/webpea/issues
