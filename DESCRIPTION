@@ -1,11 +1,21 @@
-Package: webpea
 Type: Package
-Title: What the Package Does (Title Case)
+Package: webpea
+Title: Save Plots in webP Image Format.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: person(c("Christian", "A."), "Gebhard", , "christian.gebhard@posteo.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8792-565X"))
+Maintainer: person(c("Christian", "A."), "Gebhard", , "christian.gebhard@posteo.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8792-565X"))
+Description: Provides a wrapper function for {ggplot2}'s ggsave(). Saves the specified plot in the 
+    *.webp imamge format. Results in considerably smaller file sizes when ompared to the common
+    PNG format with no loss of image quality in most use cases.
 License: MIT + file LICENSE
+URL: https://github.com/nucleic-acid/webpea
+BugReports: https://github.com/nucleic-acid/webpea/issues
+Imports: 
+    ggplot2,
+    magick,
+    R.utils
 Encoding: UTF-8
-LazyData: true
+LazyData: false
+RoxygenNote: 7.2.3
