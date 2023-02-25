@@ -13,9 +13,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# webpea
+# webpea <img src="man/figures/webpea_hex.webp" align="right" width="150"/>
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of webpea is to provide easy functions to save a plot in the [WebP image file format](https://en.wikipedia.org/wiki/WebP).

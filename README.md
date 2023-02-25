@@ -1,9 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# webpea
+# webpea <img src="man/figures/webpea_hex.webp" align="right" width="150"/>
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of webpea is to provide easy functions to save a plot in the
@@ -44,7 +46,7 @@ ggplot2::ggplot(mtcars) +
 
 # save last plot to temporary file location
 webpea(tempfile("plot", fileext = ".webp"))
-#> [1] "/tmp/RtmpA60CB2/plot35f95267997b4.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot370c62dfb7e88.webp"
 ```
 
 All parameters for `ggplot2::ggsave()` are valid and can be specified in
@@ -73,7 +75,7 @@ webpea(
   height = 9,
   quality = 90
 )
-#> [1] "/tmp/RtmpA60CB2/plot1_35f952e0aa137.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot1_370c646e28542.webp"
 ```
 
 ## When size matters
@@ -132,7 +134,7 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina"
 )
-#> [1] "/tmp/RtmpA60CB2/plot_35f95bd0076a.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot_370c64bbe662.webp"
 #> file size 81.7 kB
 
 
@@ -145,7 +147,7 @@ webpea(
   dpi = "retina",
   quality = 50
 )
-#> [1] "/tmp/RtmpA60CB2/plot50_35f95623ae68a.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot50_370c63cee1b3b.webp"
 #> file size 72.3 kB
 
 # save plot with same PNG settings but EVEN LOWER webp quality
@@ -157,7 +159,7 @@ webpea(
   dpi = "retina",
   quality = 20
 )
-#> [1] "/tmp/RtmpA60CB2/plot20_35f9550cd546c.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot20_370c670ad5180.webp"
 #> file size 58.2 kB
 
 # save plot with same PNG settings but HIGHER webp quality
@@ -169,7 +171,7 @@ webpea(
   dpi = "retina",
   quality = 90
 ) 
-#> [1] "/tmp/RtmpA60CB2/plot90_35f95211241fb.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot90_370c616010e1b.webp"
 #> file size 113.0 kB
  
 # save plot with same PNG settings but HIGHEST webp quality
@@ -181,7 +183,7 @@ webpea(
   dpi = "retina",
   quality = 100
 ) 
-#> [1] "/tmp/RtmpA60CB2/plot100_35f958f584f8.webp"
+#> [1] "/tmp/Rtmpt1iVXL/plot100_370c670c514f9.webp"
 #> file size 98.6 kB
 ```
 
