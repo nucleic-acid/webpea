@@ -8,8 +8,12 @@
 [![R-CMD-check](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nucleic-acid/webpea/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of webpea is to provide easy functions to save a plot in the
-[WebP image file format](https://en.wikipedia.org/wiki/WebP).
+The goal of `{webpea}` is to provide easy functions to save a plot in
+the [WebP image file format](https://en.wikipedia.org/wiki/WebP). There
+are other packages with the same purpose, such as `{webp}`. In
+particular, `{webpea}` aims to be a drop-in replacement for
+`ggplot2::ggsave()` or to allow easy implementation in Rmarkdown and
+Quarto documents.
 
 ## Installation
 
@@ -21,11 +25,11 @@ You can install the development version of webpea from
 remotes::install_github("nucleic-acid/webpea")
 ```
 
-## Example
+## Drop-in replacement of ggsave
 
-`webpea::webpea()` serves as drop-in replacement of `ggplot2::ggsave()`.
-First the plot is saved as a temporary PNG file, so all
-`ggplot2::ggsave()` parameters can be used as usual. Secondly the
+`webpea::webpea()` can serve as drop-in replacement of
+`ggplot2::ggsave()`. First, the plot is saved as a temporary PNG file,
+so all `ggplot2::ggsave()` parameters can be used as usual. Secondly the
 temporary PNG file is converted to WebP via the {magick} package.
 
 If no plot is specified, `ggplot2::ggsave()` defaults to
@@ -46,7 +50,7 @@ ggplot2::ggplot(mtcars) +
 
 # save last plot to temporary file location
 webpea(tempfile("plot", fileext = ".webp"))
-#> [1] "/tmp/Rtmpt1iVXL/plot370c62dfb7e88.webp"
+#> [1] "/tmp/RtmplPBGTt/plot46ab07d9d95f8.webp"
 ```
 
 All parameters for `ggplot2::ggsave()` are valid and can be specified in
@@ -75,7 +79,41 @@ webpea(
   height = 9,
   quality = 90
 )
-#> [1] "/tmp/Rtmpt1iVXL/plot1_370c646e28542.webp"
+#> [1] "/tmp/RtmplPBGTt/plot1_46ab06332edbf.webp"
+```
+
+## Using {magick}’s graphics device
+
+In case you want to prevent double file writing (i.e. intermediate PNG
+and the final WebP), you can draw the plot into {magick}’s graphics
+device in memory and save that image as WebP. **Note:** Since ggsave is
+not used in this approach, you cannot use its arguments for
+output-settings!
+
+All options that can be passed to the graphics device are valid in
+`webpea()` as well. The options / defaults can be found in [the
+documentation of
+`magick::image_graph()`](https://docs.ropensci.org/magick/reference/device.html).
+
+``` r
+library(webpea)
+
+# draw basic plot
+p_draw <- ggplot2::ggplot(mtcars) +
+  ggplot2::aes(disp, hp, color = as.factor(cyl)) +
+  ggplot2::geom_point(alpha = 0.7)
+
+# save last plot to temporary file location
+webpea(
+  tempfile("plot", fileext = ".webp"),
+  plot = p_draw,
+  ggsave = FALSE, # this switches to the {magick} graphics device
+  width = 1920,
+  height = 1080,
+  res = 326,
+  quality = 42
+  )
+#> [1] "/tmp/RtmplPBGTt/plot46ab066628e7e.webp"
 ```
 
 ## When size matters
@@ -134,7 +172,7 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina"
 )
-#> [1] "/tmp/Rtmpt1iVXL/plot_370c64bbe662.webp"
+#> [1] "/tmp/RtmplPBGTt/plot_46ab011cbac59.webp"
 #> file size 81.7 kB
 
 
@@ -147,7 +185,7 @@ webpea(
   dpi = "retina",
   quality = 50
 )
-#> [1] "/tmp/Rtmpt1iVXL/plot50_370c63cee1b3b.webp"
+#> [1] "/tmp/RtmplPBGTt/plot50_46ab055fdec81.webp"
 #> file size 72.3 kB
 
 # save plot with same PNG settings but EVEN LOWER webp quality
@@ -159,7 +197,7 @@ webpea(
   dpi = "retina",
   quality = 20
 )
-#> [1] "/tmp/Rtmpt1iVXL/plot20_370c670ad5180.webp"
+#> [1] "/tmp/RtmplPBGTt/plot20_46ab03f8d48b6.webp"
 #> file size 58.2 kB
 
 # save plot with same PNG settings but HIGHER webp quality
@@ -170,10 +208,10 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina",
   quality = 90
-) 
-#> [1] "/tmp/Rtmpt1iVXL/plot90_370c616010e1b.webp"
+)
+#> [1] "/tmp/RtmplPBGTt/plot90_46ab060eebe6b.webp"
 #> file size 113.0 kB
- 
+
 # save plot with same PNG settings but HIGHEST webp quality
 webpea(
   tempfile("plot100_", fileext = ".webp"),
@@ -182,8 +220,8 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina",
   quality = 100
-) 
-#> [1] "/tmp/Rtmpt1iVXL/plot100_370c670c514f9.webp"
+)
+#> [1] "/tmp/RtmplPBGTt/plot100_46ab010758ea4.webp"
 #> file size 98.6 kB
 ```
 
@@ -197,11 +235,11 @@ their specific use case.
 ``` r
 sizes <- data.frame(
   type = factor(
-    c("PNG","WebP 20%","WebP 50%","WebP 75% (default)","WebP 90%","WebP 100%"),
-    levels = c("PNG","WebP 20%","WebP 50%","WebP 75% (default)","WebP 90%","WebP 100%")
+    c("PNG", "WebP 20%", "WebP 50%", "WebP 75% (default)", "WebP 90%", "WebP 100%"),
+    levels = c("PNG", "WebP 20%", "WebP 50%", "WebP 75% (default)", "WebP 90%", "WebP 100%")
   ),
-  size_kB = c(233.2,58.2,72.3,81.7,113.0,98.6),
-  cat = c("PNG","WebP","WebP","WebP","WebP","WebP")
+  size_kB = c(233.2, 58.2, 72.3, 81.7, 113.0, 98.6),
+  cat = c("PNG", "WebP", "WebP", "WebP", "WebP", "WebP")
 )
 
 ggplot2::ggplot(sizes) +

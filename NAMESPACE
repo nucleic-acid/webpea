@@ -2,5 +2,7 @@
 
 export(webpea)
 importFrom(ggplot2,ggsave)
+importFrom(grDevices,dev.list)
+importFrom(grDevices,dev.off)
 importFrom(magick,image_read)
 importFrom(magick,image_write)

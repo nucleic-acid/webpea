@@ -4,21 +4,32 @@
 \alias{webpea}
 \title{webpea}
 \usage{
-webpea(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, ...)
+webpea(
+  filename,
+  plot = NULL,
+  path_return = TRUE,
+  quality = NULL,
+  ggsave = TRUE,
+  ...
+)
 }
 \arguments{
 \item{filename}{Filename to save the webp image to.}
+
+\item{plot}{The plot to be saved.}
 
 \item{path_return}{Boolean, whether the absolute output path should be returned.
 This allows to wrap the function in another function that works with the returned image. See
 vignette for details. By default true.}
 
 \item{quality}{Integer between 1 and 100. Specifies output quality for webp format. See {magick}
-documentation for details. Defaults to reasonable 75, when not given.}
+documentation for details. Defaults to 100, as this produces smaller images as compared to {magick}'s
+default of 75.}
 
 \item{ggsave}{Not yet in use.}
 
-\item{...}{Arguments to be passed to ggplot::ggsave()}
+\item{...}{Arguments to be passed to either ggplot::ggsave() or magick::image_graph(), depending
+on the value of the ggsave parameter.}
 }
 \value{
 Filename or path to the saved webp image.
@@ -38,7 +49,7 @@ webpea(tempfile("plot", fileext = ".webp"))
 
 # save specific plot with optional ggsave paramaters and in higher-than-default quality
 
-p1 <- ggplot2::ggplot(mtcars, ) +
+p1 <- ggplot2::ggplot(mtcars) +
   ggplot2::aes(disp, hp, color = cyl) +
   ggplot2::geom_point(alpha = 0.4)
 
@@ -48,6 +59,22 @@ webpea(
   width = 16,
   height = 9,
   quality = 90
+)
+
+# using {magick} graphics device
+# draw basic plot
+p_draw <- ggplot2::ggplot(mtcars) +
+  ggplot2::aes(disp, hp, color = as.factor(cyl)) +
+  ggplot2::geom_point(alpha = 0.7)
+
+webpea(
+  tempfile("plot", fileext = ".webp"),
+  plot = p_draw,
+  ggsave = FALSE, # this switches to the {magick} graphics device
+  width = 1920,
+  height = 1080,
+  res = 326,
+  quality = 42
 )
 
 }
