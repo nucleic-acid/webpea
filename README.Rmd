@@ -232,3 +232,8 @@ ggplot2::ggplot(sizes) +
 |<img src="man/figures/plot_cropped.png" alt="A zoomed and cropped part of the original PNG " align="right" width="500" style="box-shadow: 4px 4px 3px grey;"/> | <img src="man/figures/plot90_cropped.webp" alt="The same zoom level and cropped part of the plot in a webp file." align="left" width="500" style="box-shadow: 4px 4px 3px grey;"/> |
 |<img src="man/figures/plot_cropped.png" alt="A zoomed and cropped part of the original PNG " align="right" width="500" style="box-shadow: 4px 4px 3px grey;"/> | <img src="man/figures/plot100_cropped.webp" alt="The same zoom level and cropped part of the plot in a webp file." align="left" width="500" style="box-shadow: 4px 4px 3px grey;"/> |
 
+## How to contribute
+If you have ideas for improvements or new features feel free to fork and make pull requests to the dev branch. I'm always open to contributions!
+
+## Code of Conduct
+Please note that the webpea project is released with a Contributor Code of Conduct. By contributing to this project, you agree to abide by its terms.

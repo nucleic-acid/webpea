@@ -50,7 +50,7 @@ ggplot2::ggplot(mtcars) +
 
 # save last plot to temporary file location
 webpea(tempfile("plot", fileext = ".webp"))
-#> [1] "/tmp/RtmplPBGTt/plot46ab07d9d95f8.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot470452448b148.webp"
 ```
 
 All parameters for `ggplot2::ggsave()` are valid and can be specified in
@@ -79,7 +79,7 @@ webpea(
   height = 9,
   quality = 90
 )
-#> [1] "/tmp/RtmplPBGTt/plot1_46ab06332edbf.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot1_4704525d2351e.webp"
 ```
 
 ## Using {magick}’s graphics device
@@ -113,7 +113,7 @@ webpea(
   res = 326,
   quality = 42
   )
-#> [1] "/tmp/RtmplPBGTt/plot46ab066628e7e.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot47045991db42.webp"
 ```
 
 ## When size matters
@@ -172,7 +172,7 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina"
 )
-#> [1] "/tmp/RtmplPBGTt/plot_46ab011cbac59.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot_470454fa2e9cf.webp"
 #> file size 81.7 kB
 
 
@@ -185,7 +185,7 @@ webpea(
   dpi = "retina",
   quality = 50
 )
-#> [1] "/tmp/RtmplPBGTt/plot50_46ab055fdec81.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot50_4704548feac7.webp"
 #> file size 72.3 kB
 
 # save plot with same PNG settings but EVEN LOWER webp quality
@@ -197,7 +197,7 @@ webpea(
   dpi = "retina",
   quality = 20
 )
-#> [1] "/tmp/RtmplPBGTt/plot20_46ab03f8d48b6.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot20_4704531c6fcfc.webp"
 #> file size 58.2 kB
 
 # save plot with same PNG settings but HIGHER webp quality
@@ -209,7 +209,7 @@ webpea(
   dpi = "retina",
   quality = 90
 )
-#> [1] "/tmp/RtmplPBGTt/plot90_46ab060eebe6b.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot90_4704537b9cd60.webp"
 #> file size 113.0 kB
 
 # save plot with same PNG settings but HIGHEST webp quality
@@ -221,7 +221,7 @@ webpea(
   dpi = "retina",
   quality = 100
 )
-#> [1] "/tmp/RtmplPBGTt/plot100_46ab010758ea4.webp"
+#> [1] "/tmp/Rtmp9zX7MA/plot100_470456793a789.webp"
 #> file size 98.6 kB
 ```
 
@@ -270,3 +270,14 @@ ggplot2::ggplot(sizes) +
 | <img src="man/figures/plot_cropped.png" alt="A zoomed and cropped part of the original PNG " align="right" width="500" style="box-shadow: 4px 4px 3px grey;"/> | <img src="man/figures/plot75_cropped.webp" alt="The same zoom level and cropped part of the plot in a webp file." align="left" width="500" style="box-shadow: 4px 4px 3px grey;"/>  |
 | <img src="man/figures/plot_cropped.png" alt="A zoomed and cropped part of the original PNG " align="right" width="500" style="box-shadow: 4px 4px 3px grey;"/> | <img src="man/figures/plot90_cropped.webp" alt="The same zoom level and cropped part of the plot in a webp file." align="left" width="500" style="box-shadow: 4px 4px 3px grey;"/>  |
 | <img src="man/figures/plot_cropped.png" alt="A zoomed and cropped part of the original PNG " align="right" width="500" style="box-shadow: 4px 4px 3px grey;"/> | <img src="man/figures/plot100_cropped.webp" alt="The same zoom level and cropped part of the plot in a webp file." align="left" width="500" style="box-shadow: 4px 4px 3px grey;"/> |
+
+## How to contribute
+
+If you have ideas for improvements or new features feel free to fork and
+make pull requests to the dev branch. I’m always open to contributions!
+
+## Code of Conduct
+
+Please note that the webpea project is released with a Contributor Code
+of Conduct. By contributing to this project, you agree to abide by its
+terms.
