@@ -61,6 +61,7 @@ webpea(
   quality = 90
 )
 
+\dontrun{
 # using {magick} graphics device
 # draw basic plot
 p_draw <- ggplot2::ggplot(mtcars) +
@@ -76,5 +77,6 @@ webpea(
   res = 326,
   quality = 42
 )
+}
 
 }

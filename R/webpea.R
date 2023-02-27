@@ -41,6 +41,7 @@
 #'   quality = 90
 #' )
 #'
+#' \dontrun{
 #' # using {magick} graphics device
 #' # draw basic plot
 #' p_draw <- ggplot2::ggplot(mtcars) +
@@ -56,6 +57,7 @@
 #'   res = 326,
 #'   quality = 42
 #' )
+#' }
 #'
 #' @export
 #' @importFrom ggplot2 ggsave
