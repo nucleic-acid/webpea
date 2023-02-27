@@ -3,13 +3,16 @@
 #' @description Saves graphs in *.webp image format.
 #'
 #' @param filename Filename to save the webp image to.
+#' @param plot The plot to be saved.
 #' @param path_return Boolean, whether the absolute output path should be returned.
 #' This allows to wrap the function in another function that works with the returned image. See
 #' vignette for details. By default true.
 #' @param quality Integer between 1 and 100. Specifies output quality for webp format. See {magick}
-#' documentation for details. Defaults to reasonable 75, when not given.
+#' documentation for details. Defaults to 100, as this produces smaller images as compared to {magick}'s
+#' default of 75.
 #' @param ggsave Not yet in use.
-#' @param ... Arguments to be passed to ggplot::ggsave()
+#' @param ... Arguments to be passed to either ggplot::ggsave() or magick::image_graph(), depending
+#' on the value of the ggsave parameter.
 #'
 #'
 #' @return Filename or path to the saved webp image.
@@ -26,7 +29,7 @@
 #'
 #' # save specific plot with optional ggsave paramaters and in higher-than-default quality
 #'
-#' p1 <- ggplot2::ggplot(mtcars, ) +
+#' p1 <- ggplot2::ggplot(mtcars) +
 #'   ggplot2::aes(disp, hp, color = cyl) +
 #'   ggplot2::geom_point(alpha = 0.4)
 #'
@@ -38,12 +41,29 @@
 #'   quality = 90
 #' )
 #'
+#' # using {magick} graphics device
+#' # draw basic plot
+#' p_draw <- ggplot2::ggplot(mtcars) +
+#'   ggplot2::aes(disp, hp, color = as.factor(cyl)) +
+#'   ggplot2::geom_point(alpha = 0.7)
+#'
+#' webpea(
+#'   tempfile("plot", fileext = ".webp"),
+#'   plot = p_draw,
+#'   ggsave = FALSE, # this switches to the {magick} graphics device
+#'   width = 1920,
+#'   height = 1080,
+#'   res = 326,
+#'   quality = 42
+#' )
+#'
 #' @export
 #' @importFrom ggplot2 ggsave
 #' @importFrom magick image_read image_write
+#' @importFrom grDevices dev.list dev.off
 
 
-webpea <- function(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, ...) {
+webpea <- function(filename, plot = NULL, path_return = TRUE, quality = NULL, ggsave = TRUE, ...) {
   # check requirements
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("ggplot2 is needed to use this function. Install ggplot2 via install.packages('ggplot2').")
@@ -59,6 +79,10 @@ webpea <- function(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, 
   stopifnot(is.logical(ggsave))
   stopifnot(is.null(quality) | is.numeric(quality))
   stopifnot(quality > 0 & quality <= 100)
+
+  if (is.null(quality)) {
+    quality <- 100
+  }
 
   paramList <- list(...)
 
@@ -76,7 +100,6 @@ webpea <- function(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, 
             paramList
           )
         )
-
       },
       error = function(err) {
         message("PNG not created.")
@@ -95,7 +118,27 @@ webpea <- function(filename, path_return = TRUE, quality = NULL, ggsave = TRUE, 
       quality = quality
     )
   } else {
-    message("Direct export via magick graphic device is not yet supported.")
+    # drop all parameters that are not suitable for magick graphics device:
+    possibleOptions <- c("width", "height", "bg", "pointsize", "res", "clip", "antialias")
+    paramList <- paramList[names(paramList) %in% possibleOptions]
+
+    tryCatch(
+      {
+        img <- do.call(magick::image_graph, args = paramList)
+        plot(plot)
+        dev.off()
+      },
+      error = function(err) {
+        message("Error when drawing plot.")
+        print(err)
+      },
+      finally = {
+        if (!is.null(dev.list())) {
+          dev.off()
+        }
+      }
+    )
+    magick::image_write(img, path = filename, format = "webp", quality = quality)
   }
 
   if (path_return) {
