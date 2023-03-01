@@ -81,6 +81,9 @@ webpea <- function(filename, plot = NULL, path_return = TRUE, quality = 75, ggsa
   stopifnot(is.logical(ggsave))
   stopifnot(is.null(quality) | is.numeric(quality))
   stopifnot(quality > 0 & quality <= 100)
+  if (!ggsave & is.null(plot)) {
+    stop("If ggsave is set to FALSE, you need to explicitly pass a plot object.")
+  }
 
   paramList <- list(...)
 
