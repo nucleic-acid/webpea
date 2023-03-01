@@ -48,7 +48,7 @@ ggplot2::ggplot(mtcars) +
 webpea(tempfile("plot", fileext = ".webp"))
 ```
 
-All parameters for `ggplot2::ggsave()` are valid and can be specified in `webpea()`. You can also explicitly specify the plot to be saved. Additionally, you can specify the quality as percentage (defaults to 75 in the {magick} package, if not specified otherwise):
+All parameters for `ggplot2::ggsave()` are valid and can be specified in `webpea()`. You can also explicitly specify the plot to be saved. Additionally, you can specify the quality as percentage (defaults to 75, as in the {magick} package, if not specified otherwise):
 
 ```{r example2}
 library(webpea)

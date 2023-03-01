@@ -50,13 +50,13 @@ ggplot2::ggplot(mtcars) +
 
 # save last plot to temporary file location
 webpea(tempfile("plot", fileext = ".webp"))
-#> [1] "/tmp/Rtmp9zX7MA/plot470452448b148.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot497074e0dee83.webp"
 ```
 
 All parameters for `ggplot2::ggsave()` are valid and can be specified in
 `webpea()`. You can also explicitly specify the plot to be saved.
-Additionally, you can specify the quality as percentage (defaults to 75
-in the {magick} package, if not specified otherwise):
+Additionally, you can specify the quality as percentage (defaults to 75,
+as in the {magick} package, if not specified otherwise):
 
 ``` r
 library(webpea)
@@ -79,7 +79,7 @@ webpea(
   height = 9,
   quality = 90
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot1_4704525d2351e.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot1_497071c798e34.webp"
 ```
 
 ## Using {magick}’s graphics device
@@ -113,7 +113,7 @@ webpea(
   res = 326,
   quality = 42
   )
-#> [1] "/tmp/Rtmp9zX7MA/plot47045991db42.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot4970730cc63de.webp"
 ```
 
 ## When size matters
@@ -172,7 +172,7 @@ webpea(
   device = "png", # this is passed to ggsave. The final output will still be webp.
   dpi = "retina"
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot_470454fa2e9cf.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot_49707346a5999.webp"
 #> file size 81.7 kB
 
 
@@ -185,7 +185,7 @@ webpea(
   dpi = "retina",
   quality = 50
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot50_4704548feac7.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot50_497071dfd1f0b.webp"
 #> file size 72.3 kB
 
 # save plot with same PNG settings but EVEN LOWER webp quality
@@ -197,7 +197,7 @@ webpea(
   dpi = "retina",
   quality = 20
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot20_4704531c6fcfc.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot20_49707762352ad.webp"
 #> file size 58.2 kB
 
 # save plot with same PNG settings but HIGHER webp quality
@@ -209,7 +209,7 @@ webpea(
   dpi = "retina",
   quality = 90
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot90_4704537b9cd60.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot90_497071a7af3f0.webp"
 #> file size 113.0 kB
 
 # save plot with same PNG settings but HIGHEST webp quality
@@ -221,7 +221,7 @@ webpea(
   dpi = "retina",
   quality = 100
 )
-#> [1] "/tmp/Rtmp9zX7MA/plot100_470456793a789.webp"
+#> [1] "/tmp/RtmpmZ6RSQ/plot100_49707116a5f96.webp"
 #> file size 98.6 kB
 ```
 
