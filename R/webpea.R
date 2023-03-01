@@ -8,9 +8,9 @@
 #' This allows to wrap the function in another function that works with the returned image. See
 #' vignette for details. By default true.
 #' @param quality Integer between 1 and 100. Specifies output quality for webp format. See {magick}
-#' documentation for details. Defaults to 100, as this produces smaller images as compared to {magick}'s
-#' default of 75.
+#' documentation for details. Defaults to 75, as does {magick}'s webp implementation.
 #' @param ggsave Not yet in use.
+#' @param silent Whether a file path should be returned or not. Defaults to TRUE.
 #' @param ... Arguments to be passed to either ggplot::ggsave() or magick::image_graph(), depending
 #' on the value of the ggsave parameter.
 #'
@@ -65,7 +65,7 @@
 #' @importFrom grDevices dev.list dev.off
 
 
-webpea <- function(filename, plot = NULL, path_return = TRUE, quality = NULL, ggsave = TRUE, ...) {
+webpea <- function(filename, plot = NULL, path_return = TRUE, quality = 75, ggsave = TRUE, silent = FALSE, ...) {
   # check requirements
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("ggplot2 is needed to use this function. Install ggplot2 via install.packages('ggplot2').")
@@ -81,10 +81,6 @@ webpea <- function(filename, plot = NULL, path_return = TRUE, quality = NULL, gg
   stopifnot(is.logical(ggsave))
   stopifnot(is.null(quality) | is.numeric(quality))
   stopifnot(quality > 0 & quality <= 100)
-
-  if (is.null(quality)) {
-    quality <- 100
-  }
 
   paramList <- list(...)
 
@@ -143,9 +139,13 @@ webpea <- function(filename, plot = NULL, path_return = TRUE, quality = NULL, gg
     magick::image_write(img, path = filename, format = "webp", quality = quality)
   }
 
-  if (path_return) {
-    return(R.utils::getAbsolutePath(filename))
+  if (silent) {
+    return(invisible(filename))
   } else {
-    return(filename)
+    if (path_return) {
+      return(R.utils::getAbsolutePath(filename))
+    } else {
+      return(filename)
+    }
   }
 }

@@ -8,8 +8,9 @@ webpea(
   filename,
   plot = NULL,
   path_return = TRUE,
-  quality = NULL,
+  quality = 75,
   ggsave = TRUE,
+  silent = FALSE,
   ...
 )
 }
@@ -23,10 +24,11 @@ This allows to wrap the function in another function that works with the returne
 vignette for details. By default true.}
 
 \item{quality}{Integer between 1 and 100. Specifies output quality for webp format. See {magick}
-documentation for details. Defaults to 100, as this produces smaller images as compared to {magick}'s
-default of 75.}
+documentation for details. Defaults to 75, as does {magick}'s webp implementation.}
 
 \item{ggsave}{Not yet in use.}
+
+\item{silent}{Whether a file path should be returned or not. Defaults to TRUE.}
 
 \item{...}{Arguments to be passed to either ggplot::ggsave() or magick::image_graph(), depending
 on the value of the ggsave parameter.}
